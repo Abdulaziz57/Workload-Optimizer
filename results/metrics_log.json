@@ -1,5 +1,20 @@
 {
-    "exec_time_sec": 5.533466100692749,
-    "gpu_memory_diff_MB": 0,
-    "cpu_memory_diff_MB": 14.875
+    "model": "mobilenet_v2",
+    "batch_size": 1,
+    "device": "mps",
+    "num_runs": 1,
+    "avg_exec_time_sec": 3.4970948696136475,
+    "avg_gpu_memory_diff_MB": 0.0,
+    "avg_cpu_memory_diff_MB": 51.984375,
+    "all_runs": {
+        "times_sec": [
+            3.4970948696136475
+        ],
+        "gpu_mem_diff_MB": [
+            0
+        ],
+        "cpu_mem_diff_MB": [
+            51.984375
+        ]
+    }
 }

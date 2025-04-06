@@ -1,0 +1,28 @@
+{
+    "timestamp": "2025-04-06 18:05:59",
+    "model": "vgg16",
+    "batch_size": 2,
+    "device": "mps",
+    "num_runs": 3,
+    "use_half_precision": true,
+    "avg_exec_time_sec": 0.43098266919453937,
+    "avg_gpu_memory_diff_MB": 0.0,
+    "avg_cpu_memory_diff_MB": 118.17708333333333,
+    "all_runs": {
+        "times_sec": [
+            1.2849500179290771,
+            0.0044841766357421875,
+            0.003513813018798828
+        ],
+        "gpu_mem_diff_MB": [
+            0,
+            0,
+            0
+        ],
+        "cpu_mem_diff_MB": [
+            320.109375,
+            29.625,
+            4.796875
+        ]
+    }
+}

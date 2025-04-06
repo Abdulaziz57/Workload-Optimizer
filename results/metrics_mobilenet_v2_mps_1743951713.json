@@ -1,0 +1,28 @@
+{
+    "timestamp": "2025-04-06 18:01:53",
+    "model": "mobilenet_v2",
+    "batch_size": 1,
+    "device": "mps",
+    "num_runs": 3,
+    "use_half_precision": true,
+    "avg_exec_time_sec": 1.2228558858235676,
+    "avg_gpu_memory_diff_MB": 0.0,
+    "avg_cpu_memory_diff_MB": -32.994791666666664,
+    "all_runs": {
+        "times_sec": [
+            3.636234998703003,
+            0.017181873321533203,
+            0.015150785446166992
+        ],
+        "gpu_mem_diff_MB": [
+            0,
+            0,
+            0
+        ],
+        "cpu_mem_diff_MB": [
+            -100.75,
+            2.59375,
+            -0.828125
+        ]
+    }
+}

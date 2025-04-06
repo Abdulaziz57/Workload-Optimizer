@@ -1,0 +1,28 @@
+{
+    "timestamp": "2025-04-06 18:02:14",
+    "model": "resnet50",
+    "batch_size": 1,
+    "device": "mps",
+    "num_runs": 3,
+    "use_half_precision": true,
+    "avg_exec_time_sec": 1.2514154116312664,
+    "avg_gpu_memory_diff_MB": 0.0,
+    "avg_cpu_memory_diff_MB": -8.578125,
+    "all_runs": {
+        "times_sec": [
+            3.6922800540924072,
+            0.03398299217224121,
+            0.02798318862915039
+        ],
+        "gpu_mem_diff_MB": [
+            0,
+            0,
+            0
+        ],
+        "cpu_mem_diff_MB": [
+            -37.71875,
+            11.984375,
+            0.0
+        ]
+    }
+}
