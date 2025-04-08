@@ -3,6 +3,9 @@ import os
 import json
 import plotly.express as px
 import plotly.graph_objects as go
+import pandas as pd
+
+
 
 RESULTS_DIR = "results"
 
@@ -197,7 +200,19 @@ def main():
             "total_exec_time_s": total_time_s,
             "estimated_cost_$": round(cost, 4)
         })
-    st.write(cost_table)
+    cost_df = pd.DataFrame(cost_table)
+    st.dataframe(cost_df, use_container_width=True)
+
+    fig_cost = px.bar(
+    cost_df,
+    x="filename",
+    y="estimated_cost_$",
+    color="device",
+    title="Estimated Inference Cost per Run",
+    labels={"estimated_cost_$": "Estimated Cost ($)", "filename": "Result File"}
+    )
+    st.plotly_chart(fig_cost)
+
 
 if __name__ == "__main__":
     main()
