@@ -11,30 +11,22 @@ so you can get multiple JSON results easily without manually typing commands.
 Customize the 'configs' list below with the combinations you want to test.
 """
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main():
-    # We'll define a list of models
+    # Tweak the combos to avoid super-long runs
     models_list = [
         "mobilenet_v2",
         "resnet50",
-        "vgg16",
-        "efficientnet_b0",
-        "inception_v3",
-        "bert",      # if you want to add NLP
-        "gpt2",      # if you want to add GPT2
+        # "vgg16",        # comment out or keep one big model
+        # "efficientnet_b0",
+        # "inception_v3",
     ]
 
-    # We'll define some batch sizes
-    batch_sizes = [1, 2, 4, 8, 16]
-    # We'll define how many runs you want for each config
-    num_runs = 5
-
-    # We might want to test with and without half precision
+    batch_sizes = [1, 2, 4]  # smaller set
     half_options = [False, True]
+    num_runs = 3
 
-    # Now we systematically generate commands
     for model in models_list:
         for bs in batch_sizes:
             for half in half_options:
