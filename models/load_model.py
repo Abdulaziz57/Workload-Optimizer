@@ -1,10 +1,11 @@
 # models/load_model.py
+
 import torch
 from torchvision import models
 
 # For an example small BERT model
 try:
-    from transformers import BertModel
+    from transformers import BertModel, GPT2Model
     TRANSFORMERS_AVAILABLE = True
 except ImportError:
     TRANSFORMERS_AVAILABLE = False
@@ -28,11 +29,18 @@ def load_model_and_input(model_name="mobilenet_v2", batch_size=1, use_half=False
         net = models.resnet50(weights="IMAGENET1K_V1")
     elif model_name == "vgg16":
         net = models.vgg16(weights="IMAGENET1K_V1")
+    elif model_name == "efficientnet_b0":
+        net = models.efficientnet_b0(weights="IMAGENET1K_V1")
+    elif model_name == "inception_v3":
+        net = models.inception_v3(weights="IMAGENET1K_V1")
     elif model_name == "bert":
         if not TRANSFORMERS_AVAILABLE:
             raise ValueError("transformers not installed. Please pip install transformers.")
-        # Just for demonstration
         net = BertModel.from_pretrained("bert-base-uncased")
+    elif model_name == "gpt2":
+        if not TRANSFORMERS_AVAILABLE:
+            raise ValueError("transformers not installed. Please pip install transformers.")
+        net = GPT2Model.from_pretrained("gpt2")
     else:
         raise ValueError(f"Unsupported model: {model_name}")
 
@@ -46,15 +54,15 @@ def load_model_and_input(model_name="mobilenet_v2", batch_size=1, use_half=False
         net.half()
 
     # 4. Prepare dummy input
-    if model_name in ["mobilenet_v2", "resnet50", "vgg16"]:
+    if model_name in ["mobilenet_v2", "resnet50", "vgg16", "efficientnet_b0", "inception_v3"]:
         # Typical image shape
+        # inception_v3 expects 299x299 typically, but let's keep 224 for consistency
         dummy_input = torch.randn(batch_size, 3, 224, 224)
     elif model_name == "bert":
-        # For BERT, a simplified input of shape (batch_size, seq_len)
-        # Actually BERT input is token IDs, but let's just do random for demonstration
         dummy_input = torch.randint(0, 1000, (batch_size, 16))  # seq_len=16
+    elif model_name == "gpt2":
+        dummy_input = torch.randint(0, 1000, (batch_size, 16))  # simplistic
     else:
-        # fallback
         dummy_input = torch.randn(batch_size, 3, 224, 224)
 
     # If using half precision on CUDA, input should also be half

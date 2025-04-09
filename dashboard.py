@@ -213,6 +213,49 @@ def main():
     )
     st.plotly_chart(fig_cost)
 
+    # ===========================================================
+    # NEW: Leaderboard / Summary of all selected files
+    # ===========================================================
+    st.header("Leaderboard / Summary")
+
+    # Build a list of dictionaries for each selected file
+    summary_rows = []
+    for data in selected_data:
+        row = {
+            "filename": data["filename"],
+            "model": data["model"],
+            "batch_size": data["batch_size"],
+            "device": data["device"],
+            "half_precision": data.get("use_half_precision", False),
+            "avg_time_sec": data["avg_exec_time_sec"],
+            "avg_gpu_mem_MB": data["avg_gpu_memory_diff_MB"],
+            "avg_cpu_mem_MB": data["avg_cpu_memory_diff_MB"]
+        }
+        summary_rows.append(row)
+
+    if summary_rows:
+        df_summary = pd.DataFrame(summary_rows)
+        st.dataframe(df_summary)
+
+        # Optional: color-code best/worst time or memory
+        # We can highlight the minimum avg_time_sec in green, max in red, etc.
+        st.subheader("Colored Table (Optional)")
+
+        def highlight_min(s):
+            is_min = s == s.min()
+            return ['background-color: lightgreen' if v else '' for v in is_min]
+
+        def highlight_max(s):
+            is_max = s == s.max()
+            return ['background-color: pink' if v else '' for v in is_max]
+
+        # For demonstration, let's just highlight min for time and max for GPU mem
+        styled_df = df_summary.style.apply(highlight_min, subset=["avg_time_sec"]) \
+                                     .apply(highlight_max, subset=["avg_gpu_mem_MB"])
+        st.dataframe(styled_df, use_container_width=True)
+    else:
+        st.info("No data to display in summary.")
+
 
 if __name__ == "__main__":
     main()
